@@ -9,12 +9,10 @@ import pygame
 import states.app as app
 
 pygame.init()
-app_controller = app.Control()
+app_controller = app.Controller()
 
 app_controller.main_loop()
 
 # if game loop broke
 pygame.quit()
 sys.exit()
-
-
