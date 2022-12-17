@@ -28,6 +28,7 @@ class Controller:
         self.background_img = pygame.transform.scale(self.background_img,
                                                      (const.SCREEN_WIDTH,
                                                       const.SCREEN_HEIGHT))
+
         # init game_objects
 
 
