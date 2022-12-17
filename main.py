@@ -5,14 +5,9 @@
 ###############################################################################
 
 import sys
-import pygame
 import states.app as app
 
-pygame.init()
 app_controller = app.Controller()
-
 app_controller.main_loop()
-
-# if game loop broke
-pygame.quit()
+# if game loop breaks
 sys.exit()

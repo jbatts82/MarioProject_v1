@@ -19,20 +19,16 @@ keybindings = {
 
 class Controller:
     def __init__(self):
-        # init control objects
         self.run_game = True
-
-        # set up clock
+        pygame.init()
         self.clock = pygame.time.Clock()
-
-        # create screen with simple background
         self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
         pygame.display.set_caption(const.MAIN_CAPTION)
         self.background_img = pygame.image.load(const.BACKGROUND_PNG_LOC).convert_alpha()
         self.background_img = pygame.transform.scale(self.background_img,
                                                      (const.SCREEN_WIDTH,
                                                       const.SCREEN_HEIGHT))
-
+        # init game_objects
 
 
     def main_loop(self):
@@ -65,4 +61,5 @@ class Controller:
         pass
 
     def process_drawings(self):
-        pass
+        self.screen.blit(self.background_img, (0, 0))
+        pygame.display.update()

@@ -14,4 +14,4 @@ FPS = 60
 
 # sprite Locations
 MARIO_SPRITE_SHEET_LOC = 'resources/graphics/mario_bros.png'
-BACKGROUND_PNG_LOC = 'resources/graphics/Level_1.png'
+BACKGROUND_PNG_LOC = 'resources/graphics/level_1.png'
