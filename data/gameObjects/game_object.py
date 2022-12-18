@@ -9,23 +9,36 @@ import data.constants as const
 
 
 class GameObject(pygame.sprite.Sprite):
-    def __init__(self, x_pos, y_pos, width, height, name='game_object'):
+    def __init__(self, screen, x_pos, y_pos, width, height, name='game_object'):
         pygame.sprite.Sprite.__init__(self)
+        self.screen = screen
+        self.state = None
         self.image = pygame.Surface((width, height)).convert()
         self.rect = self.image.get_rect()
         self.rect.x = x_pos
         self.rect.y = y_pos
-        self.state = None
+        self.tempx = 0
+        self.tempy = 0
 
 
-class StaticEntity(GameObject):
-    def __init__(self, x_pos, y_pos, width, height, name='static_object'):
-        super().__init__(self, x_pos, y_pos, width, height, name)
+    def update(self):
+        self.tempy += 1
+        self.set_position(self.tempx, self.tempy)
+
+    def set_position(self, x_pos, y_pos):
+        self.rect.x = x_pos
+        self.rect.y = y_pos
+
+    def draw(self):
+        self.screen.blit(self.image, self.rect)
+
+
 
 
 class MovableEntity(GameObject):
-    def __init__(self, x_pos, y_pos, width, height, name='movable_object'):
-        super().__init__(x_pos, y_pos, width, height, name)
+    def __init__(self, screen, x_pos, y_pos, width, height, name='movable_object'):
+        GameObject.__init__(self, screen, x_pos, y_pos, width, height)
+        pass
 
     def move(self):
         pass

@@ -27,3 +27,8 @@ FALL = 'fall'
 GETTING_BIGGER = 'small to big'
 GETTING_SMALLER = 'big to small'
 DEATH_JUMP = 'death jump'
+
+# hex colors codes
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)

@@ -26,12 +26,7 @@ class Controller:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
         pygame.display.set_caption(const.MAIN_CAPTION)
-        self.background_img = pygame.image.load(const.BACKGROUND_PNG_LOC).convert_alpha()
-        self.background_img = pygame.transform.scale(self.background_img,
-                                                     (const.SCREEN_WIDTH,
-
-                                                      const.SCREEN_HEIGHT))
-        self.mario = mario.Mario(0, 0, 16, 16)
+        self.mario = mario.Mario(self.screen, 1, 1, 16, 16)
 
     def main_loop(self):
         print("main_loop")
@@ -39,6 +34,7 @@ class Controller:
             self.process_events()
             self.process_updates()
             self.process_drawings()
+            pygame.display.flip()
             self.clock.tick(const.FPS)
 
     def process_events(self):
@@ -60,8 +56,9 @@ class Controller:
                     print("Jump")
 
     def process_updates(self):
-        pass
+        pygame.display.update()
+        self.mario.update()
 
     def process_drawings(self):
-        self.screen.blit(self.background_img, (0, 0))
-        pygame.display.update()
+        self.screen.fill(const.BLUE)
+        self.mario.draw()

@@ -11,8 +11,8 @@ import communityChest.spriteSheet as ss
 
 
 class Mario(Player):
-    def __init__(self, x_pos=None, y_pos=None, width=None, height=None, name='mario'):
-        super().__init__(x_pos, y_pos, width, height)
+    def __init__(self, screen, x_pos, y_pos, width, height, name='mario'):
+        Player.__init__(self, screen, x_pos, y_pos, width, height)
         self.state = const.STAND
         self.sprite_sheet = pygame.image.load(const.MARIO_SPRITE_SHEET_LOC).convert_alpha()
         self.last_update = pygame.time.get_ticks()
