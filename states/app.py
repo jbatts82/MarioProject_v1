@@ -6,6 +6,7 @@
 
 import pygame
 import data.constants as const
+import data.gameObjects.players.mario as mario
 
 keybindings = {
     'action': pygame.K_s,
@@ -21,16 +22,16 @@ class Controller:
     def __init__(self):
         self.run_game = True
         pygame.init()
+        # init game_objects
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
         pygame.display.set_caption(const.MAIN_CAPTION)
         self.background_img = pygame.image.load(const.BACKGROUND_PNG_LOC).convert_alpha()
         self.background_img = pygame.transform.scale(self.background_img,
                                                      (const.SCREEN_WIDTH,
+
                                                       const.SCREEN_HEIGHT))
-
-        # init game_objects
-
+        self.mario = mario.Mario(0, 0, 16, 16)
 
     def main_loop(self):
         print("main_loop")
