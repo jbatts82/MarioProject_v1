@@ -6,11 +6,11 @@
 
 import pygame
 import data.constants as const
-from data.gameObjects.game_object import MovableEntity
+from data.gameObjects.players.player import Player
 import communityChest.spriteSheet as ss
 
 
-class Mario(MovableEntity):
+class Mario(Player):
     def __init__(self, x_pos=None, y_pos=None, width=None, height=None, name='mario'):
         super().__init__(x_pos, y_pos, width, height)
         self.state = const.STAND
