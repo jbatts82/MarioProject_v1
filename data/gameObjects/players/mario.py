@@ -12,7 +12,8 @@ import states.app as app
 
 
 class Mario(Player):
-    def __init__(self, screen, x_pos, y_pos, width, height, name='mario'):
+    def __init__(self, screen, x_pos, y_pos, width, height, name='mario_object'):
+        print(name)
         Player.__init__(self, screen, x_pos, y_pos, width, height)
         self.state = const.STAND
         self.sprite_sheet = pygame.image.load(const.MARIO_SPRITE_SHEET_LOC).convert_alpha()
@@ -52,18 +53,9 @@ class Mario(Player):
             self.standing(keys)
         elif self.state == const.WALK:
             self.walking(keys)
-        elif self.state == const.JUMP:
-            self.jumping(keys)
-        elif self.state == const.FALL:
-            self.falling(keys)
-        elif self.state == const.DEATH_JUMP:
-            self.jumping_to_death(keys)
-        elif self.state == const.GETTING_BIGGER:
-            self.changing_to_big()
-        elif self.state == const.GETTING_SMALLER:
-            self.changing_to_small()
         else:
             pass
+
 
     def update(self, keys):
         if keys is not None:

@@ -11,6 +11,7 @@ import states.app as app
 
 class GameObject(pygame.sprite.Sprite):
     def __init__(self, screen, x_pos, y_pos, width, height, name='game_object'):
+        print(name)
         pygame.sprite.Sprite.__init__(self)
         self.screen = screen
         self.state = None
@@ -32,6 +33,7 @@ class GameObject(pygame.sprite.Sprite):
 
 class MovableEntity(GameObject):
     def __init__(self, screen, x_pos, y_pos, width, height, name='movable_object'):
+        print(name)
         GameObject.__init__(self, screen, x_pos, y_pos, width, height)
         self.x_velocity = 1
         self.y_velocity = 1

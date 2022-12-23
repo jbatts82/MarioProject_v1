@@ -9,7 +9,8 @@ import states.app as app
 
 
 class Player(MovableEntity):
-    def __init__(self, screen, x_pos, y_pos, width, height, name='player'):
+    def __init__(self, screen, x_pos, y_pos, width, height, name='player_object'):
+        print(name)
         MovableEntity.__init__(self, screen, x_pos, y_pos, width, height)
 
     def update(self, keys):

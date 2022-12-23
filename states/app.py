@@ -10,6 +10,7 @@ import data.constants as const
 import data.gameObjects.players.mario as mario
 import data.gameObjects.game_object as go
 import data.gameObjects.players.player as player
+import states.joystick
 
 player1_keybindings = {
     'action': pygame.K_n,
@@ -30,6 +31,8 @@ player2_keybindings = {
 }
 
 
+
+
 class Controller:
     def __init__(self):
         print("main_init")
@@ -40,6 +43,8 @@ class Controller:
         self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
         pygame.display.set_caption(const.MAIN_CAPTION)
         self.keys = None
+        joysticks = states.joystick.JoyStick()
+
         random.seed()
         self.static_object_width = 128
         self.static_object_height = 128
