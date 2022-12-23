@@ -39,15 +39,29 @@ class Controller:
         self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
         pygame.display.set_caption(const.MAIN_CAPTION)
-        self.mario = mario.Mario(self.screen, 1, 1, 16, 16)
         self.keys = None
         random.seed()
-        self.a_static_object = go.GameObject(self.screen,
-                                             random.randrange(0, const.SCREEN_WIDTH),
-                                             random.randrange(0, const.SCREEN_HEIGHT),
-                                             128, 128)
+        self.static_object_width = 128
+        self.static_object_height = 128
+        self.movable_object_width = self.static_object_width / 2
+        self.movable_object_height = self.static_object_height / 2
+        self.player_object_width = self.movable_object_width / 2
+        self.player_object_height = self.movable_object_height / 2
+        self.mario_object_width = self.player_object_width / 2
+        self.mario_object_height = self.player_object_height / 2
 
-        self.a_movable_object = go.MovableEntity(self.screen, 0, 0, 64, 64)
+
+        self.a_static_object = go.GameObject(self.screen,
+                                             random.randrange(0, const.SCREEN_WIDTH - self.static_object_width),
+                                             random.randrange(0, const.SCREEN_HEIGHT - self.static_object_height),
+                                             self.static_object_width,
+                                             self.static_object_height)
+
+        self.a_movable_object = go.MovableEntity(self.screen,
+                                                 0,
+                                                 0,
+                                                 64,
+                                                 64)
         self.a_player_object = player.Player(self.screen, 0, 0, 32, 32)
         self.mario_object = mario.Mario(self.screen, 0, const.SCREEN_HEIGHT-16, 16, 16)
 

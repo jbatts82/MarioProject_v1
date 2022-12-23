@@ -15,11 +15,10 @@ class Mario(Player):
     def __init__(self, screen, x_pos, y_pos, width, height, name='mario'):
         Player.__init__(self, screen, x_pos, y_pos, width, height)
         self.state = const.STAND
-
         self.sprite_sheet = pygame.image.load(const.MARIO_SPRITE_SHEET_LOC).convert_alpha()
         self.last_update = pygame.time.get_ticks()
-        self.animation_idx = 0
-        self.animations = []
+        self.frame_idx = 0
+        self.animation = []
         self.create_animation_dictionary()
 
     # chopping up 'mario_bros.png' into actions and frames
@@ -47,10 +46,6 @@ class Mario(Player):
         for frame in self.right_small_reg_frames:
             new_image = pygame.transform.flip(frame, True, False)
             self.left_small_reg_frames.append(new_image)
-
-        self.reg_small_frames = [self.right_small_reg_frames, self.left_small_reg_frames]
-        self.animations.append(self.right_small_reg_frames)
-        self.animations.append(self.right_big_reg_frames)
 
     def handle_state(self, keys):
         if self.state == const.STAND:
@@ -95,3 +90,16 @@ class Mario(Player):
                 self.update_position(1, 0)
             if keys[app.keybindings['left']]:
                 self.update_position(-1, 0)
+
+    def update_animation(self):
+        pass
+
+    def update_frame(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.last_update >= self.animation_cooldown:
+            self.frame += 1
+            self.last_update = current_time
+            if self.frame >= len(animations[action]):
+                frame = 0
+
+        self.image = animation[frame]
