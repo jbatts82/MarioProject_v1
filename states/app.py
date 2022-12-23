@@ -5,8 +5,10 @@
 ###############################################################################
 
 import pygame
+import random
 import data.constants as const
 import data.gameObjects.players.mario as mario
+import data.gameObjects.game_object as go
 
 keybindings = {
     'action': pygame.K_s,
@@ -20,6 +22,7 @@ keybindings = {
 
 class Controller:
     def __init__(self):
+        print("main_init")
         self.run_game = True
         pygame.init()
         # init game_objects
@@ -27,6 +30,15 @@ class Controller:
         self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
         pygame.display.set_caption(const.MAIN_CAPTION)
         self.mario = mario.Mario(self.screen, 1, 1, 16, 16)
+        self.keys = None
+        random.seed()
+        self.a_static_object = go.GameObject(self.screen,
+                                             random.randrange(0, const.SCREEN_WIDTH),
+                                             random.randrange(0, const.SCREEN_HEIGHT),
+                                             64, 64)
+
+        self.a_movable_object = go.MovableEntity(self.screen, 0, 0, 32, 32)
+        self.mario_object = mario.Mario(self.screen, 0, const.SCREEN_HEIGHT-16, 16, 16)
 
     def main_loop(self):
         print("main_loop")
@@ -42,23 +54,18 @@ class Controller:
             if event.type == pygame.QUIT:
                 self.run_game = False
             if event.type == pygame.KEYDOWN:
-                if event.key == keybindings['down']:
-                    print("Down")
-                if event.key == keybindings['up']:
-                    print("Up")
-                if event.key == keybindings['left']:
-                    print("Left")
-                if event.key == keybindings['right']:
-                    print("Right")
-                if event.key == keybindings['action']:
-                    print("Action")
-                if event.key == keybindings['jump']:
-                    print("Jump")
+                self.keys = pygame.key.get_pressed()
+            if event.type == pygame.KEYUP:
+                self.keys = pygame.key.get_pressed()
 
     def process_updates(self):
         pygame.display.update()
-        self.mario.update()
+        self.a_static_object.update()
+        self.a_movable_object.update()
+        self.mario_object.update(self.keys)
 
     def process_drawings(self):
         self.screen.fill(const.BLUE)
-        self.mario.draw()
+        self.a_static_object.draw()
+        self.a_movable_object.draw()
+        self.mario_object.draw()
