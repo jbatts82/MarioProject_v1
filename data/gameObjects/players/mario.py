@@ -72,14 +72,14 @@ class Mario(Player):
 
     def update(self, keys):
         if keys is not None:
-            if keys[app.keybindings['right']]:
+            if keys[app.player2_keybindings['right']]:
                 self.move_position(self.x_velocity, 0)
-            if keys[app.keybindings['left']]:
+            if keys[app.player2_keybindings['left']]:
                 self.move_position(-self.x_velocity, 0)
-            if keys[app.keybindings['up']]:
-                self.move_position(0, -self.y_velocity)
-            if keys[app.keybindings['down']]:
-                self.move_position(0, self.y_velocity)
+            if keys[app.player2_keybindings['up']]:
+                pass
+            if keys[app.player2_keybindings['down']]:
+                pass
 
     def standing(self, keys):
         self.x_velocity = 0

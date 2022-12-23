@@ -9,14 +9,24 @@ import random
 import data.constants as const
 import data.gameObjects.players.mario as mario
 import data.gameObjects.game_object as go
+import data.gameObjects.players.player as player
 
-keybindings = {
-    'action': pygame.K_s,
-    'jump': pygame.K_a,
+player1_keybindings = {
+    'action': pygame.K_n,
+    'jump': pygame.K_m,
     'left': pygame.K_LEFT,
     'right': pygame.K_RIGHT,
     'down': pygame.K_DOWN,
     'up': pygame.K_UP
+}
+
+player2_keybindings = {
+    'action': pygame.K_g,
+    'jump': pygame.K_h,
+    'left': pygame.K_a,
+    'right': pygame.K_d,
+    'down': pygame.K_s,
+    'up': pygame.K_w
 }
 
 
@@ -35,9 +45,10 @@ class Controller:
         self.a_static_object = go.GameObject(self.screen,
                                              random.randrange(0, const.SCREEN_WIDTH),
                                              random.randrange(0, const.SCREEN_HEIGHT),
-                                             64, 64)
+                                             128, 128)
 
-        self.a_movable_object = go.MovableEntity(self.screen, 0, 0, 32, 32)
+        self.a_movable_object = go.MovableEntity(self.screen, 0, 0, 64, 64)
+        self.a_player_object = player.Player(self.screen, 0, 0, 32, 32)
         self.mario_object = mario.Mario(self.screen, 0, const.SCREEN_HEIGHT-16, 16, 16)
 
     def main_loop(self):
@@ -62,10 +73,12 @@ class Controller:
         pygame.display.update()
         self.a_static_object.update()
         self.a_movable_object.update()
+        self.a_player_object.update(self.keys)
         self.mario_object.update(self.keys)
 
     def process_drawings(self):
         self.screen.fill(const.BLUE)
         self.a_static_object.draw()
         self.a_movable_object.draw()
+        self.a_player_object.draw()
         self.mario_object.draw()
