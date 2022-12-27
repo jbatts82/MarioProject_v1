@@ -6,21 +6,22 @@
 
 import pygame
 import data.constants as const
-from data.gameObjects.players.player import Player
+from data.gameObjects.movableEntities.players.player import Player
 import communityChest.spriteSheet as ss
-import states.app as app
 
 
 class Mario(Player):
-    def __init__(self, screen, x_pos, y_pos, width, height, name='mario_object'):
+    def __init__(self, screen, controller, x_pos, y_pos, width, height, name='mario_object'):
         print(name)
-        Player.__init__(self, screen, x_pos, y_pos, width, height)
+        Player.__init__(self, screen, controller, x_pos, y_pos, width, height)
         self.state = const.STAND
         self.sprite_sheet = pygame.image.load(const.MARIO_SPRITE_SHEET_LOC).convert_alpha()
         self.last_update = pygame.time.get_ticks()
         self.frame_idx = 0
+        self.frame = None
         self.animation = []
         self.create_animation_dictionary()
+        self.animation_cooldown = const.ANIMATION_COOLDOWN
 
     # chopping up 'mario_bros.png' into actions and frames
     def create_animation_dictionary(self):
@@ -59,29 +60,30 @@ class Mario(Player):
 
     def update(self, keys):
         if keys is not None:
-            if keys[app.player2_keybindings['right']]:
+            if keys[self.key_binds['right']]:
                 self.move_position(self.x_velocity, 0)
-            if keys[app.player2_keybindings['left']]:
+            if keys[self.key_binds['left']]:
                 self.move_position(-self.x_velocity, 0)
-            if keys[app.player2_keybindings['up']]:
+            if keys[self.key_binds['up']]:
                 pass
-            if keys[app.player2_keybindings['down']]:
+            if keys[self.key_binds['down']]:
                 pass
+
 
     def standing(self, keys):
         self.x_velocity = 0
         self.y_velocity = 0
 
-        if keys[app.keybindings['right']]:
+        if keys[self.key_binds['right']]:
             self.state = const.WALK
 
     def walking(self, keys):
         self.x_velocity += 1
         if keys is not None:
-            if keys[app.keybindings['right']]:
-                self.update_position(1, 0)
-            if keys[app.keybindings['left']]:
-                self.update_position(-1, 0)
+            if keys[self.key_binds['right']]:
+                pass
+            if keys[self.key_binds['left']]:
+                pass
 
     def update_animation(self):
         pass
@@ -91,7 +93,7 @@ class Mario(Player):
         if current_time - self.last_update >= self.animation_cooldown:
             self.frame += 1
             self.last_update = current_time
-            if self.frame >= len(animations[action]):
+            if self.frame >= len(self.animation[self.frame]):
                 frame = 0
 
-        self.image = animation[frame]
+        self.image = self.animation[self.frame]

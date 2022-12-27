@@ -7,30 +7,13 @@
 import pygame
 import random
 import data.constants as const
-import data.gameObjects.players.mario as mario
+import data.gameObjects.movableEntities.players.mario as mario
 import data.gameObjects.game_object as go
-import data.gameObjects.players.player as player
+import data.gameObjects.movableEntities.players.player as player
+import data.gameObjects.staticEntities.block as block
+import data.gameObjects.staticEntities.cloud as cloud
 import states.joystick
-
-player1_keybindings = {
-    'action': pygame.K_n,
-    'jump': pygame.K_m,
-    'left': pygame.K_LEFT,
-    'right': pygame.K_RIGHT,
-    'down': pygame.K_DOWN,
-    'up': pygame.K_UP
-}
-
-player2_keybindings = {
-    'action': pygame.K_g,
-    'jump': pygame.K_h,
-    'left': pygame.K_a,
-    'right': pygame.K_d,
-    'down': pygame.K_s,
-    'up': pygame.K_w
-}
-
-
+import states.keyboard
 
 
 class Controller:
@@ -43,8 +26,8 @@ class Controller:
         self.screen = pygame.display.set_mode((const.SCREEN_WIDTH, const.SCREEN_HEIGHT))
         pygame.display.set_caption(const.MAIN_CAPTION)
         self.keys = None
-        joysticks = states.joystick.JoyStick()
-
+        keyboard1 = states.keyboard.Keyboard(0)
+        keyboard2 = states.keyboard.Keyboard(1)
         random.seed()
         self.static_object_width = 128
         self.static_object_height = 128
@@ -55,20 +38,22 @@ class Controller:
         self.mario_object_width = self.player_object_width / 2
         self.mario_object_height = self.player_object_height / 2
 
+        # define objects to draw on the game screen
+        self.a_block = block.Block(self.screen,
+                                   random.randrange(0, const.SCREEN_WIDTH - self.static_object_width),
+                                   random.randrange(0, const.SCREEN_HEIGHT - self.static_object_height),
+                                   self.static_object_width,
+                                   self.static_object_height)
 
-        self.a_static_object = go.GameObject(self.screen,
-                                             random.randrange(0, const.SCREEN_WIDTH - self.static_object_width),
-                                             random.randrange(0, const.SCREEN_HEIGHT - self.static_object_height),
-                                             self.static_object_width,
-                                             self.static_object_height)
+        self.a_cloud = cloud.Cloud(self.screen,
+                                   random.randrange(0, const.SCREEN_WIDTH - self.static_object_width),
+                                   random.randrange(0, const.SCREEN_HEIGHT - self.static_object_height),
+                                   self.static_object_width,
+                                   self.static_object_height)
 
-        self.a_movable_object = go.MovableEntity(self.screen,
-                                                 0,
-                                                 0,
-                                                 64,
-                                                 64)
-        self.a_player_object = player.Player(self.screen, 0, 0, 32, 32)
-        self.mario_object = mario.Mario(self.screen, 0, const.SCREEN_HEIGHT-16, 16, 16)
+
+        self.a_player_object = player.Player(self.screen, keyboard1, 0, 0, 32, 32)
+        self.mario_object = mario.Mario(self.screen, keyboard2, 0, const.SCREEN_HEIGHT - 16, 16, 16)
 
     def main_loop(self):
         print("main_loop")
@@ -90,14 +75,16 @@ class Controller:
 
     def process_updates(self):
         pygame.display.update()
-        self.a_static_object.update()
-        self.a_movable_object.update()
+        self.a_block.update()
+        self.a_cloud.update()
+
         self.a_player_object.update(self.keys)
         self.mario_object.update(self.keys)
 
     def process_drawings(self):
         self.screen.fill(const.BLUE)
-        self.a_static_object.draw()
-        self.a_movable_object.draw()
+        self.a_block.draw()
+        self.a_cloud.draw()
+
         self.a_player_object.draw()
         self.mario_object.draw()

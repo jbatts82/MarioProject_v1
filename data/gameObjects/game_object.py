@@ -6,7 +6,6 @@
 
 import pygame
 import data.constants as const
-import states.app as app
 
 
 class GameObject(pygame.sprite.Sprite):
@@ -15,7 +14,9 @@ class GameObject(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.screen = screen
         self.state = None
-        self.image = pygame.Surface((width, height)).convert()
+        self.image = pygame.Surface((width, height)).convert_alpha()
+        self.image.fill(const.RED)
+
         self.rect = self.image.get_rect()
         self.rect.x = x_pos
         self.rect.y = y_pos
@@ -51,3 +52,9 @@ class MovableEntity(GameObject):
         self.rect.x += self.delta_x
         self.rect.y += self.delta_y
         self.set_position(self.rect.x, self.rect.y)
+
+
+class StaticEntity(GameObject):
+    def __init__(self, screen, x_pos, y_pos, width, height, name='static_object'):
+        GameObject.__init__(self, screen, x_pos, y_pos, width, height, name)
+        print(name)
