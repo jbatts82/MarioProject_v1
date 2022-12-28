@@ -1,7 +1,7 @@
 ###############################################################################
-# File Name  : mario.py
-# Date       : 12/17/2022
-# Description: Mario data and logic
+# File Name  : luigi.py
+# Date       : 12/28/2022
+# Description: Luigi data and logic
 ###############################################################################
 
 import pygame
@@ -10,8 +10,8 @@ from data.gameObjects.movableEntities.players.player import Player
 import communityChest.spriteSheet as ss
 
 
-class Mario(Player):
-    def __init__(self, screen, controller, x_pos, y_pos, width, height, name='mario_object'):
+class Luigi(Player):
+    def __init__(self, screen, controller, x_pos, y_pos, width, height, name='luigi_object'):
         print(name)
         Player.__init__(self, screen, controller, x_pos, y_pos, width, height)
         self.state = const.STAND
@@ -28,27 +28,10 @@ class Mario(Player):
         # load sprite sheet into extracting tool
         sprite_tool = ss.SpriteSheet(self.sprite_sheet)
         self.right_frames = []
-        self.right_standing = sprite_tool.extract_image(23, 507, 13, 16)
+        self.right_standing = sprite_tool.extract_image(192, 503, 13, 16)
         self.left_standing = pygame.transform.flip(self.right_standing, True, False)
         self.image = self.right_standing
-        self.right_small_reg_frames = []
-        self.right_big_reg_frames = []
-        self.left_small_reg_frames = []
-        self.left_big_reg_frames = []
 
-        # Get images for right side mario
-        self.right_small_reg_frames.append(sprite_tool.extract_image(80, 32, 16, 16))
-        self.right_small_reg_frames.append(sprite_tool.extract_image(80 + 16, 32, 16, 16))
-        self.right_small_reg_frames.append(sprite_tool.extract_image(80 + 16 + 16, 32, 16, 16))
-
-        self.right_big_reg_frames.append(sprite_tool.extract_image(80, 0, 16, 32))
-        self.right_big_reg_frames.append(sprite_tool.extract_image(80 + 16 + 16, 0, 16, 32))
-        self.right_big_reg_frames.append(sprite_tool.extract_image(80 + 16, 0, 16, 32))
-
-        # Create images for left side mall mario
-        for frame in self.right_small_reg_frames:
-            new_image = pygame.transform.flip(frame, True, False)
-            self.left_small_reg_frames.append(new_image)
 
     def handle_state(self, keys):
         if self.state == const.STAND:

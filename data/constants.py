@@ -23,7 +23,7 @@ BACKGROUND_PNG_LOC = 'resources/graphics/level_1.png'
 MISC3_LOC = 'resources/graphics/misc-3.gif'
 
 # sprite attributes
-SIZE_MULTIPLIER = 4
+SIZE_MULTIPLIER = 5
 ANIMATION_COOLDOWN = 150
 
 # mario states

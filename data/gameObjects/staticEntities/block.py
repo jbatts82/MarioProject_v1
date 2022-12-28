@@ -23,5 +23,6 @@ class Block(StaticEntity):
         self.image1 = []
         self.image1.append(sprite_tool.extract_image(373, 142, 16, 16))
         self.image = self.image1[0]
+        self.image.set_colorkey(const.UNUSED_COLOR)
 
 

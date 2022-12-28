@@ -8,10 +8,11 @@ import pygame
 import random
 import data.constants as const
 import data.gameObjects.movableEntities.players.mario as mario
-import data.gameObjects.game_object as go
+import data.gameObjects.movableEntities.players.luigi as luigi
 import data.gameObjects.movableEntities.players.player as player
 import data.gameObjects.staticEntities.block as block
 import data.gameObjects.staticEntities.cloud as cloud
+import data.gameObjects.movableEntities.items.mushroom as mushroom
 import states.joystick
 import states.keyboard
 
@@ -47,13 +48,25 @@ class Controller:
 
         self.a_cloud = cloud.Cloud(self.screen,
                                    random.randrange(0, const.SCREEN_WIDTH - self.static_object_width),
-                                   random.randrange(0, const.SCREEN_HEIGHT - self.static_object_height),
+                                   random.randrange(0, const.SCREEN_HEIGHT/2 - self.static_object_height),
                                    self.static_object_width,
                                    self.static_object_height)
 
+        self.a_mushroom = mushroom.Mushroom(self.screen,
+                                            random.randrange(0, const.SCREEN_WIDTH - self.static_object_width),
+                                            random.randrange(0, const.SCREEN_HEIGHT - self.static_object_height),
+                                            16,
+                                            16)
 
-        self.a_player_object = player.Player(self.screen, keyboard1, 0, 0, 32, 32)
-        self.mario_object = mario.Mario(self.screen, keyboard2, 0, const.SCREEN_HEIGHT - 16, 16, 16)
+
+        self.luigi_object = luigi.Luigi(self.screen, keyboard1, 0, 0, 32, 32)
+        self.mario_object = mario.Mario(self.screen,
+                                        keyboard2,
+                                        0,
+                                        const.SCREEN_HEIGHT - (16 * const.SIZE_MULTIPLIER),
+                                        16,
+                                        16)
+
 
     def main_loop(self):
         print("main_loop")
@@ -77,14 +90,14 @@ class Controller:
         pygame.display.update()
         self.a_block.update()
         self.a_cloud.update()
-
-        self.a_player_object.update(self.keys)
+        self.a_mushroom.update()
+        self.luigi_object.update(self.keys)
         self.mario_object.update(self.keys)
 
     def process_drawings(self):
         self.screen.fill(const.BLUE)
         self.a_block.draw()
         self.a_cloud.draw()
-
-        self.a_player_object.draw()
+        self.a_mushroom.draw()
+        self.luigi_object.draw()
         self.mario_object.draw()
