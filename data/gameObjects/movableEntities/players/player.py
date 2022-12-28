@@ -16,6 +16,10 @@ class Player(MovableEntity):
 
 
     def update(self, keys):
+        # gravity
+        # move left/right
+        # collision detection
+
         if keys is not None:
             if keys[self.key_binds['right']]:
                 self.move_position(self.x_velocity, 0)

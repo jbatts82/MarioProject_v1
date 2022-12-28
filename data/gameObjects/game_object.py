@@ -58,3 +58,4 @@ class StaticEntity(GameObject):
     def __init__(self, screen, x_pos, y_pos, width, height, name='static_object'):
         GameObject.__init__(self, screen, x_pos, y_pos, width, height, name)
         print(name)
+

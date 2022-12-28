@@ -23,7 +23,6 @@ class Luigi(Player):
         self.create_animation_dictionary()
         self.animation_cooldown = const.ANIMATION_COOLDOWN
 
-    # chopping up 'mario_bros.png' into actions and frames
     def create_animation_dictionary(self):
         # load sprite sheet into extracting tool
         sprite_tool = ss.SpriteSheet(self.sprite_sheet)

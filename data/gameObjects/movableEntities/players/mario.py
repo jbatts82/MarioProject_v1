@@ -22,33 +22,16 @@ class Mario(Player):
         self.animation = []
         self.create_animation_dictionary()
         self.animation_cooldown = const.ANIMATION_COOLDOWN
+        self.level = None
 
-    # chopping up 'mario_bros.png' into actions and frames
     def create_animation_dictionary(self):
         # load sprite sheet into extracting tool
         sprite_tool = ss.SpriteSheet(self.sprite_sheet)
-        self.right_frames = []
+        self.right_walking_frames = []
+        self.left_walking_frames = []
         self.right_standing = sprite_tool.extract_image(23, 507, 13, 16)
         self.left_standing = pygame.transform.flip(self.right_standing, True, False)
         self.image = self.right_standing
-        self.right_small_reg_frames = []
-        self.right_big_reg_frames = []
-        self.left_small_reg_frames = []
-        self.left_big_reg_frames = []
-
-        # Get images for right side mario
-        self.right_small_reg_frames.append(sprite_tool.extract_image(80, 32, 16, 16))
-        self.right_small_reg_frames.append(sprite_tool.extract_image(80 + 16, 32, 16, 16))
-        self.right_small_reg_frames.append(sprite_tool.extract_image(80 + 16 + 16, 32, 16, 16))
-
-        self.right_big_reg_frames.append(sprite_tool.extract_image(80, 0, 16, 32))
-        self.right_big_reg_frames.append(sprite_tool.extract_image(80 + 16 + 16, 0, 16, 32))
-        self.right_big_reg_frames.append(sprite_tool.extract_image(80 + 16, 0, 16, 32))
-
-        # Create images for left side mall mario
-        for frame in self.right_small_reg_frames:
-            new_image = pygame.transform.flip(frame, True, False)
-            self.left_small_reg_frames.append(new_image)
 
     def handle_state(self, keys):
         if self.state == const.STAND:
@@ -57,7 +40,6 @@ class Mario(Player):
             self.walking(keys)
         else:
             pass
-
 
     def update(self, keys):
         if keys is not None:
@@ -71,7 +53,6 @@ class Mario(Player):
                 pass
             if keys[self.key_binds['down']]:
                 pass
-
 
     def standing(self, keys):
         self.x_velocity = 0
